@@ -7,17 +7,18 @@
     <body>
         <h1>Welcome to SampleBBS</h1>
         <input type="text" id="message">
-        <input type="button" value="送信" onclick="sendData()">
-        <p>
+        <input id="sendButton" type="button" value="送信">
+        <section>
             <h2>すべてのメッセージ </h2>
             <ol id="list">
                 <li>メッセージ1</li>
                 <li>メッセージ2</li>
                 <li>メッセージ3</li>
             </ol>
-        </p>
+        </section>
     </body>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="index.js"></script>
 </html>

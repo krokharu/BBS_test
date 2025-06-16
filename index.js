@@ -1,6 +1,5 @@
-// Firebaseの初期化
+// Firebase の初期化（既存コードそのまま）
 const firebaseApp = firebase.initializeApp({
-  // APIキーをコピー＆ペースト
   apiKey: "AIzaSyDj0Q6-lFfLgbaXBsx3LUUo4iWV75u0fJk",
   authDomain: "csd-c1p41035.firebaseapp.com",
   projectId: "csd-c1p41035",
@@ -15,15 +14,16 @@ const auth = firebaseApp.auth();
 // 送信ボタンがクリックされたときの処理
 const sendData = () => {
   const message = document.getElementById("message").value;
+  if (!message) return;  // 空文字は無視
 
-  // コレクション "csd" にドキュメントを追加
   db.collection("csd").add({
     message: message,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()  // 任意でタイムスタンプを追加
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
   })
   .then((docRef) => {
     console.log("Document written with ID: ", docRef.id);
-    readData();  // 成功したらデータを再読み込み
+    document.getElementById("message").value = "";  // 入力欄クリア
+    readData();  // 成功したら一覧を再読み込み
   })
   .catch((error) => {
     console.error("Error adding document: ", error);
@@ -33,21 +33,28 @@ const sendData = () => {
 // データを表示する処理
 const readData = () => {
   db.collection("csd")
-  .get()
-  .than((data) => {
-  var ol = document.getElementById("list")
-  ol.innerHTML = "";  // リストをクリア
-  for (var i = 0; i < data.docs.length; i++) {
-    var id = data .docs[i].id;
-    var message  data.docs[i].data().message;
-    var li = document.createElement("li");
-    li.innerHTML = message ;
-    ol.appendChild(li);
-  }
-});
+    .orderBy("timestamp", "asc")  // 任意：日時順にソート
+    .get()
+    .then((querySnapshot) => {
+      const ol = document.getElementById("list");
+      ol.innerHTML = "";  // リストをクリア
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const li = document.createElement("li");
+        li.textContent = data.message;
+        ol.appendChild(li);
+      });
+    })
+    .catch((error) => {
+      console.error("Error reading documents: ", error);
+    });
 };
 
 // ページ読み込み時に実行する処理
-window.onload = function(){
+window.onload = () => {
+  // 送信ボタンの取得
+  const sendBtn = document.getElementById("sendButton");
+  sendBtn.addEventListener("click", sendData);
+
   readData();
 };

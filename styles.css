@@ -1,0 +1,81 @@
+/* リセット＆基本設定 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* ヘッダー */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #444;
+  text-align: center;
+}
+h2 {
+  font-size: 1.5rem;
+  margin: 30px 0 10px;
+  color: #555;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+}
+
+/* メッセージ入力欄 */
+#message {
+  width: calc(100% - 130px);
+  max-width: 600px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+/* 送信ボタン */
+input[type="button"] {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+input[type="button"]:hover {
+  background-color: #0056b3;
+}
+
+/* メッセージリスト */
+ol#list {
+  list-style: decimal inside;
+  max-width: 600px;
+  margin-top: 10px;
+  padding-left: 0;
+}
+ol#list li {
+  background-color: #fff;
+  margin-bottom: 8px;
+  padding: 12px 15px;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  word-break: break-all;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 640px) {
+  #message {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  input[type="button"] {
+    width: 100%;
+  }
+}
